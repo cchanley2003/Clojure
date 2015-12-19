@@ -12,4 +12,6 @@
 
 (println (rotate 2 input1))
 
+ (println (concat (rest input1)  (list (first input1))))
+
 
