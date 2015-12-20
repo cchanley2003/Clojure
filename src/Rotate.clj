@@ -1,12 +1,12 @@
  (ns Rotate)
 
 
- (defn rotate [amount list]
+ (defn rotate [amount ls]
    (if (= amount 0)
-     list
+     ls
      (if (< amount 0)
-       (rotate (inc amount) (cons  (last list) (drop-last list)) )
-       (rotate (dec amount) (conj (rest list) (first list))))))
+       (rotate (inc amount) (cons  (last ls) (drop-last ls)) )
+       (rotate (dec amount) (concat (rest ls) (list (first ls)))))))
 
 (def input1 [1 2 3 4 5])
 
