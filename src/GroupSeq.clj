@@ -11,6 +11,7 @@
 
  (println (partition-by app [[1 2] [2 4] [4 6] [3 6]]))
 
- (println (map #(assoc {} (app (first %)) %) (partition-by app [[1 2] [2 4] [4 6] [3 6]])))
+ (println (map #(assoc (array-map) (app (first %)) %) (partition-by app [[1 2] [2 4] [4 6] [3 6]])))
 
  (println (groupSeq #(apply / %) [[1 2] [2 4] [4 6] [3 6]]))
+
