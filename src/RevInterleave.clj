@@ -8,3 +8,6 @@
  (println  (take-nth 2 (flatten (map #(rest %) (partition 3 (range 9))))))
 
  (println (revInter (range 9 ) 3))
+
+ (println (partition 3 (range 9)))
+
