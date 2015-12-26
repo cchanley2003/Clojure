@@ -1,11 +1,7 @@
  (ns Map)
 
 
- (defn newMap [f s]
-   (loop [result (lazy-seq) toDo s]
-     (if (empty? toDo)
-       result
-       (recur (conj result (f (first toDo)))  (rest toDo)))))
+(defn newMap [f s] (if (empty? s) (lazy-seq) (lazy-cat (lazy-seq (list (f (first s)))) (newMap f (rest s)))))
 
 
  (println (newMap inc [1 2 3 4]))
