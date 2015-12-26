@@ -17,4 +17,4 @@
 
 
 
- (println (ptri 4))
+ (println (map ptri (range 1 15)))
