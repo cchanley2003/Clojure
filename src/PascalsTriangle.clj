@@ -18,3 +18,5 @@
 
 
  (println (map ptri (range 1 15)))
+
+
