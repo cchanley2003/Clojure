@@ -8,16 +8,27 @@
 
 ;(println (ana1? "team" "meat"))
 
-(defn anaFinder1 [y] (map set (letfn [(ana? [x y] (= (set (seq x)) (set (seq y))))] (filter #(> (count %) 1) (if (= 1 (count y))
-                                                                                                               #{}
-                                                                                                               (concat #{(conj (filter #(ana? (first y) %) (rest y)) (first y))} (anaFinder1 (rest y))))))))
 
+(defn finalAnswer [x] (into #{} (letfn [(ana? [first sec] (= (set (seq first)) (set (seq sec))))
+                              (anaFinder1 [y] (map set
+                                                  (filter #(> (count %) 1) (if (= 1 (count y))
+                                                                             #{}
+                                                                             (concat #{(conj (filter #(ana? (first y) %) (rest y)) (first y))}
+                                                                                     (anaFinder1 (rest y)))))))
+                              ]
+                        (let [preResult (anaFinder1 x)] (filter
+                          (fn [item] (reduce #(and (not (and (clojure.set/subset? item %2) (not= item %2))) %1) true preResult))
+                          preResult)))))
 
+(println (finalAnswer ["veer" "lake" "item" "kale" "mite" "ever"]))
+(println (= (finalAnswer ["veer" "lake" "item" "kale" "mite" "ever"]) #{#{"veer" "ever"} #{"lake" "kale"} #{"mite" "item"}}))
 
-(println (anaFinder1 ["veer" "lake" "item" "kale" "mite" "ever"]))
-(println (anaFinder1 ["meat" "mat" "team" "mate" "eat"]))
+;(println (anaFinder1 ["meat" "mat" "team" "mate" "eat"]))
+(println (finalAnswer ["meat" "mat" "team" "mate" "eat"]))
+
+(println (clojure.set/subset? #{1 2} #{1 2 3}))
 (println "what")
-(println (map set (anaFinder1 ["veer" "lake" "item" "kale" "mite" "ever"])))
+;(println (map set (anaFinder1 ["veer" "lake" "item" "kale" "mite" "ever"])))
 
 
 (defn anaAgain [z] (letfn [(anaFinder [y]
