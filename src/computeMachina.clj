@@ -1,5 +1,6 @@
  (ns computeMachina)
-(def fn fullEval [input] (letfn [
+
+(defn fullEval [input] (letfn [
                              (exprEval [argMap vals] (map (fn [val] (cond
                                                                       (number? val) val
                                                                       (coll? val) (let [expr (exprEval argMap val)] (apply (first expr) (rest expr)))
