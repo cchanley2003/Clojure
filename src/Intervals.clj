@@ -14,8 +14,10 @@
                                                                       (= (inc (last newInterval)) (first remainder)) (recur (conj newInterval (first remainder)) (rest remainder))
                                                                       :default (list newInterval remainder))))]
                          (map #(if (> (count %) 1)
-                                [(first %) (second %)]
-                                [(first %)])
+                                [(first %) (last %)]
+                                [(first %) (first %)])
                               (getIntervals (sort (into #{} x))))))
 
 (println (getEndPoints input))
+
+(println (getEndPoints [1 2 3]))
