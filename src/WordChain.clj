@@ -37,15 +37,30 @@
                                         words)))
 
 
-(defn walkChain [word chainMap] (loop [visited #{word} ]))
+(defn walkChain [word chainMap visited goal] (let [newVisited (conj visited word)]
+                                               (cond
+                                                 (= newVisited goal) true
+                                                 (contains? visited word) false
+                                                 :else (loop [todo (chainMap word)]
+                                                         (cond
+                                                           (empty? todo) false
+                                                           (walkChain (first todo) chainMap newVisited goal) true
+                                                           :else (recur (rest todo))
+                                                                                      )))
+                                               ))
 
 (defn canChain? [lw] (let [wordsWithChildren (findAllChildren lw)]
-                       (apply or (map #(walkChain % wordsWithChildren) lw)))
+                       (some #(walkChain % wordsWithChildren #{} lw) lw))
   )
+
 
 
 ;(println (map #({% 1}) chain))
 
 (println (findAllChildren chain))
+
+(println (walkChain "dog" (findAllChildren chain) #{} chain))
+
+(println (canChain? chain))
 
 
